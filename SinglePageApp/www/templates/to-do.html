@@ -1,0 +1,40 @@
+
+<ion-view view-title="To-Do">
+
+<ion-content>
+
+
+  <ion-list class="list card">
+    <ion-item class=" item item-icon-right " ng-repeat='item in todo' ng-click="toggleChecked(item)">
+
+
+        <s ng-show="item.gemacht">
+
+        <h2>{{item.item}}</h2></s>
+
+        <h2 ng-hide="item.gemacht">{{item.item}}</h2>
+
+         <i class="icon positive"  ng-class="item.gemacht ? 'ion-ios-checkmark' : 'ion-ios-circle-outline'"></i>
+
+
+    </ion-item>
+  </ion-list>
+
+
+  <ion-list class="list">
+    <ion-item class="item-icon-right item item-checkbox " ng-repeat='item in todo' >
+
+
+      <label class="checkbox">
+             <input type="checkbox">
+           </label>
+           {{item.item}}
+
+
+
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+</ion-view>

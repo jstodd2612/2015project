@@ -1,8 +1,9 @@
 <ion-view view-title="To-Do">
   <ion-content>
     <div class="list">
-          <ion-checkbox ng-repeat="item in devList" ng-model="item.checked" ng-checked="item.checked">
-            <s ng-show="item.checked">  <h2>{{ item.text }}</h2></s>
+        
+          <ion-checkbox ng-repeat="item in devList" ng-checked="item.checked">
+            <s ng-show="item.checked"> <h2>{{ item.text }}</h2></s>
             <h2 ng-hide="item.checked">{{ item.text }}</h2>
           </ion-checkbox>
 

@@ -8372,7 +8372,7 @@ IonicModule
       '<label class="item item-checkbox">' +
         '<div class="checkbox checkbox-input-hidden disable-pointer-events">' +
           '<input type="checkbox">' +
-          '<i class="checkbox-icon"></i>' +
+          '<i class="ion-android-checkbox-outline-blank"></i>' +
         '</div>' +
         '<div class="item-content disable-pointer-events" ng-transclude></div>' +
       '</label>',

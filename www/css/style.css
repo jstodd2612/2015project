@@ -11,3 +11,13 @@ h2{
 color: #00bbb5;
 
 }
+
+
+/***** Login ******/
+
+.login{
+  line-height: 24px !important;
+  font-size: 22px !important;
+  padding-left: 15px !important;
+  height: 50px !important;
+}

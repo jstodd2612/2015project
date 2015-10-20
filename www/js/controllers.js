@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -41,7 +41,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
+example.controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
@@ -53,7 +53,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('TodoCtrl', function($scope) {
+example.controller('TodoCtrl', function($scope) {
 
   $scope.devList = [
     { text: "Go to school", checked: false },
@@ -68,5 +68,115 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+example.controller('PlaylistCtrl', function($scope, $stateParams) {
 });
+
+
+example.controller("ExampleController", function($scope, $ionicPopup, PouchDBListener) {
+
+    $scope.todos = [];
+
+    $scope.result = [];
+
+
+    $scope.create = function() {
+        $ionicPopup.prompt({
+            title: 'Enter a new TODO item',
+            inputType: 'text'
+
+
+        })
+        .then(function(result) {
+            if(result !== "") {
+                if($scope.hasOwnProperty("todos") !== true) {
+                    $scope.todos = [];
+                }
+                localDB.post({title: result});
+
+
+            } else {
+                console.log("Action not completed");
+            }
+        });
+    };
+
+    $scope.addtodo = function(text) {
+            if(text !== "") {
+
+
+                if($scope.hasOwnProperty("todos") !== true) {
+                    $scope.todos = [];
+                }
+                localDB.post({
+                  _id: text,
+                  completed: false});
+
+
+            } else {
+                console.log("Action not completed");
+            }
+
+
+        };
+
+        $scope.deleteTodo = function(todo){
+          localDB.remove(todo);
+
+
+        }
+
+    $scope.get = function(query){
+
+      remoteDB.get(query).then(function (result) {
+        $scope.result = result;
+
+      });
+
+
+    }
+
+    $scope.toggleCompleted = function(todo){
+    todo.completed = !todo.completed;
+
+  }
+
+    $scope.$on('add', function(event, todo) {
+        $scope.todos.push(todo);
+
+    });
+
+    $scope.$on('delete', function(event, id) {
+        for(var i = 0; i < $scope.todos.length; i++) {
+            if($scope.todos[i]._id === id) {
+                $scope.todos.splice(i, 1);
+            }
+        }
+    });
+
+});
+
+example.factory('PouchDBListener', ['$rootScope', function($rootScope) {
+
+    localDB.changes({
+        continuous: true,
+        onChange: function(change) {
+            if (!change.deleted) {
+                $rootScope.$apply(function() {
+                    localDB.get(change.id, function(err, doc) {
+                        $rootScope.$apply(function() {
+                            if (err) console.log(err);
+                            $rootScope.$broadcast('add', doc);
+                        })
+                    });
+                })
+            } else {
+                $rootScope.$apply(function() {
+                    $rootScope.$broadcast('delete', change.id);
+                });
+            }
+        }
+    });
+
+    return true;
+
+}]);

@@ -1,25 +1,79 @@
 <ion-view view-title="To-Do">
+
   <ion-content>
-    <div class="list">
-        
-          <ion-checkbox ng-repeat="item in devList" ng-checked="item.checked">
-            <s ng-show="item.checked"> <h2>{{ item.text }}</h2></s>
-            <h2 ng-hide="item.checked">{{ item.text }}</h2>
-          </ion-checkbox>
 
-      <!--     <div class="item">
-            <pre ng-bind="devList | json"></pre>
-         </div> -->
 
-          <p></p>
 
-      <div class="list list-inset">
-        <form class="" action="index.html" method="post">
-        <label class="item item-input item ">
-          <input type="text" placeholder=" Add item">
-          <button type="submit" class="button button-icon icon ion-plus-circled positive"></button>
-        </label>
-        </form>
-      </div>
-  </ion-content>
+<div class="item item-input-inset">
+    <label class="item-input-wrapper " type="search" value= "">
+     <input type="text" id="new-todo"  placeholder="What needs to be done?" autofocus ng-model="text">
+</label>
+
+      <button class="button button-icon icon ion-plus-circled positive" ng-click="addtodo(text)"></button>
+</div>
+
+
+<!--  <div class="list">
+<ion-checkbox
+                      ng-repeat="todo in todos"
+                      ng-model="todo.completed"
+                      ng-checked="todo.completed">
+        <s ng-show="todo.completed">  <h2>{{ todo.title }}</h2></s>
+        <h2 ng-hide="todo.completed">{{ todo.title }}</h2>
+
+
+        </ion-checkbox>
+</div>
+
+<div class="list">
+
+
+                <ion-checkbox ng-repeat="todo in todos" class="item-icon-right" ng-model="todo.completed" ng-checked="todo.completed">
+
+                      <h2>  {{todo.title}} </h2>
+                      <h2>  {{todo.completed}} </h2>
+
+               <ion-option-button  ng-click="delete(todo)" class="icon ion-trash-a"></ion-option-button>
+
+<i ng-show="todo.completed" class="ion-ios-circle-outline"></i><i ng-hide="todo.completed" class="ion-ios-checkmark"></i>
+
+                </ion-checkbox>
+              </div>-->
+
+
+
+  <ion-list class="list" ng-repeat="todo in todos" >
+<ion-item  class="item item-icon-left item-icon-right" ng-click="toggleCompleted(todo)">
+
+
+
+  <s ng-show="todo.completed">    <h2>{{todo._id}}</h2></s>
+          <h2 ng-show="!todo.completed">{{ todo._id }}</h2>
+
+<i class="icon positive"  ng-class="todo.completed ? 'ion-ios-checkmark' : 'ion-ios-circle-outline'"></i>
+<i class="icon positive ion-ios-trash" ng-click="deleteTodo(todo)"></i>
+<!-- <button ng-click="deleteTodo(todo)" type="button button-right" class="button button-positive" name="button">Delete item</button>-->
+
+
+
+  </ion-item>
+</ion-list>
+
+
+
+
+
+                         <div class="item item-input-inset">
+                             <label class="item-input-wrapper " type="search" value= "">
+                               <input type="text" placeholder="Input for query" ng-model="query">
+                         </label>
+
+                               <button class="button button-right" ng-click="get(query)">Get request</button>
+                         </div>
+
+<h2>{{result._id}}</h2>
+
+
+
+    </ion-content>
 </ion-view>

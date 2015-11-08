@@ -9,7 +9,7 @@ example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-$scope.user = null;
+
 
   // Form data for the login modal
   $scope.loginData = {};

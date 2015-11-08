@@ -6,9 +6,9 @@
 .item-dark{
   background-color: #444444 !important;
 }
-
+/***** h2 ******/
 h2{
-color: #00bbb5;
+color: #1fa19c;
 
 }
 
@@ -30,4 +30,9 @@ img.checkbox-selector{
    width:15px;
    margin:5px;
    padding-right:5px;
+}
+
+.checked {
+    color: #9E9E9E;
+    text-decoration: line-through;
 }

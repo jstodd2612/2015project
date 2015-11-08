@@ -1,10 +1,28 @@
-<ion-view view-title="To-Do">
 
+
+<div class="tabs-striped tabs-top tabs-background-calm tabs-color-light">
+    <div class="tabs">
+      <a class="tab-item " href="#/app/chores">
+
+        Shopping
+      </a>
+      <a class="tab-item active" href="#/app/todo">
+
+        Todo
+      </a>
+      <a class="tab-item" href="#/app/shopping">
+
+        Homework
+      </a>
+    </div>
+  </div>
+
+<ion-view view-title="Todo">
   <ion-content>
 
 
 
-<div class="item item-input-inset">
+<!--<div class="item item-input-inset">
     <label class="item-input-wrapper " type="search" value= "">
      <input type="text" id="new-todo"  placeholder="What needs to be done?" autofocus ng-model="text">
 </label>
@@ -13,7 +31,7 @@
 </div>
 
 
-<!--  <div class="list">
+  <div class="list">
 <ion-checkbox
                       ng-repeat="todo in todos"
                       ng-model="todo.completed"
@@ -40,21 +58,23 @@
                 </ion-checkbox>
               </div>-->
 
+<br><br>
+
+  <ion-list class="list " ng-repeat="item in items" >
+<ion-item  class="item item-icon-right" ng-click="purchaseItem(item)" ng-class="{checked: item.checked == 'true'}">
 
 
-  <ion-list class="list" ng-repeat="todo in todos" >
-<ion-item  class="item item-icon-left item-icon-right" ng-click="toggleCompleted(todo)">
+
+<h2>{{item.name}}</h2>
 
 
+<i class="icon calm"  ng-class="item.checked == 'true'? 'ion-android-checkbox-outline' : 'ion-android-checkbox-outline-blank'"></i>
+<!--<i class="icon positive ion-ios-trash" ng-click="deleteTodo(todo)"></i>
+ <button ng-click="deleteTodo(todo)" type="button button-right" class="button button-positive" name="button">Delete item</button>-->
 
-  <s ng-show="todo.completed">    <h2>{{todo._id}}</h2></s>
-          <h2 ng-show="!todo.completed">{{ todo._id }}</h2>
-
-<i class="icon positive"  ng-class="todo.completed ? 'ion-ios-checkmark' : 'ion-ios-circle-outline'"></i>
-<i class="icon positive ion-ios-trash" ng-click="deleteTodo(todo)"></i>
-<!-- <button ng-click="deleteTodo(todo)" type="button button-right" class="button button-positive" name="button">Delete item</button>-->
-
-
+<ion-option-button class="button-assertive" ng-click="deleteTodo(item)">
+      <i class="icon ion-trash-a"> </i>
+    </ion-option-button>
 
   </ion-item>
 </ion-list>
@@ -63,7 +83,7 @@
 
 
 
-                         <div class="item item-input-inset">
+                      <!---   <div class="item item-input-inset">
                              <label class="item-input-wrapper " type="search" value= "">
                                <input type="text" placeholder="Input for query" ng-model="query">
                          </label>
@@ -71,9 +91,13 @@
                                <button class="button button-right" ng-click="get(query)">Get request</button>
                          </div>
 
-<h2>{{result._id}}</h2>
+<h2>{{result._id}}</h2> -->
 
 
 
     </ion-content>
+    <div  ng-click="addItem() "class="bar bar-footer bar-calm">
+
+      <div class="title">Click to add item </div>
+    </div>
 </ion-view>

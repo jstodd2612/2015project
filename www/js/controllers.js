@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', []);
 
 example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -8,6 +8,8 @@ example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
   //});
+
+$scope.user = null;
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -39,36 +41,100 @@ example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
       $scope.closeLogin();
     }, 1000);
   };
-})
-
-example.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
 
 
-example.controller('TodoCtrl', function($scope) {
+});
 
-  $scope.devList = [
-    { text: "Go to school", checked: false },
-    { text: "Do the homework", checked: false },
-    { text: "Drink water", checked: false },
-    { text: "Sleep enough", checked: false},
-    { text: "Learn ionic framewrok", checked: false},
-    { text: "Learn angular framewrok", checked: false}
-  ];
+example.controller('FirebaseCtrl', function($scope, Items, $ionicListDelegate, $state) {
+  $scope.items = Items;
+  $scope.checked = $scope.items.checked;
 
 
-})
+  var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
+ref.onAuth(function(authData) {
+  if (authData) {
+    console.log("Authenticated with uid:", authData.uid);
+    $scope.user = authData.uid;
+  } else {
+  $state.go('app.login2');
+  }
+});
+
+  $scope.addItem = function() {
+    var name = prompt('What do you need to buy?');
+    if (name) {
+      $scope.items.$add({
+        'name': name,
+        'checked': false
+      });
+    }
+  };
+
+  $scope.purchaseItem = function(item) {
+    var itemRef = new Firebase('https://dazzling-torch-81.firebaseio.com/'+$scope.user+'/todos/' + item.$id);
+    $scope.checked = !$scope.checked;
+    console.log($scope.checked);
 
 
-example.controller('PlaylistCtrl', function($scope, $stateParams) {
+    if ($scope.checked) {
+      itemRef.child('checked').set('true');
+      $ionicListDelegate.closeOptionButtons();
+    } else {
+      itemRef.child('checked').set('false');
+      $ionicListDelegate.closeOptionButtons();
+
+    }
+
+  };
+  $scope.deleteTodo = function(item){
+    var deleteTodo = new Firebase('https://dazzling-torch-81.firebaseio.com/'+$scope.user+'/todos/' + item.$id);
+    deleteTodo.remove();
+
+  };
+});
+
+
+example.controller('SignUpCtrl', function($scope, $state) {
+
+
+$scope.signup = function(useremail, password){
+  var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
+  ref.createUser({
+    email    : useremail,
+    password : password
+  }, function(error, userData) {
+    if (error) {
+      console.log("Error creating user:", error);
+    } else {
+      console.log("Successfully created user account with uid:", userData.uid);
+      console.log(onAuth()+"Here ist the on Auth");
+      $state.go('app.login2');
+    }
+  });
+};
+});
+
+
+example.controller('LoginCtrl', function($scope, $state) {
+
+
+$scope.login = function(useremail, password){
+  console.log('TEST TEST');
+  var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
+  console.log("test");
+  ref.authWithPassword({
+    email    : useremail,
+    password : password
+
+  }, function(error, authData) {
+    if (error) {
+      console.log("Login Failed!", error);
+    } else {
+      console.log("Authenticated successfully with payload:", authData);
+       $state.go('app.home');
+    }
+  },{ remember: "sessionOnly"});
+};
 });
 
 
@@ -91,7 +157,7 @@ example.controller("ExampleController", function($scope, $ionicPopup, PouchDBLis
                 if($scope.hasOwnProperty("todos") !== true) {
                     $scope.todos = [];
                 }
-                localDB.post({title: result});
+                localDB.post({_id: result});
 
 
             } else {
@@ -123,7 +189,7 @@ example.controller("ExampleController", function($scope, $ionicPopup, PouchDBLis
           localDB.remove(todo);
 
 
-        }
+        };
 
     $scope.get = function(query){
 
@@ -133,12 +199,12 @@ example.controller("ExampleController", function($scope, $ionicPopup, PouchDBLis
       });
 
 
-    }
+    };
 
     $scope.toggleCompleted = function(todo){
     todo.completed = !todo.completed;
 
-  }
+  };
 
     $scope.$on('add', function(event, todo) {
         $scope.todos.push(todo);
@@ -166,9 +232,9 @@ example.factory('PouchDBListener', ['$rootScope', function($rootScope) {
                         $rootScope.$apply(function() {
                             if (err) console.log(err);
                             $rootScope.$broadcast('add', doc);
-                        })
+                        });
                     });
-                })
+                });
             } else {
                 $rootScope.$apply(function() {
                     $rootScope.$broadcast('delete', change.id);

@@ -7,12 +7,32 @@
 
 
 
-var example = angular.module('starter', ['ionic']);
+var example = angular.module('starter', ['ionic' , 'firebase']);
 
-var newTodoDom = document.getElementById('new-todo');
 
-var localDB = new PouchDB("thomas2");
-var remoteDB = new PouchDB("https://10767134:12345678@10767134.iriscouch.com/thomas2");
+example.factory('Items', ['$firebaseArray', function($firebaseArray, $state) {
+
+var user;
+
+  var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
+ref.onAuth(function(authData) {
+  if (authData) {
+    console.log("Authenticated with uid:", authData.uid);
+    user = authData.uid;
+  } else {
+
+  }
+});
+
+console.log(user +" Userid");
+
+
+  var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+user+'/todos');
+  return $firebaseArray(itemsRef);
+}]);
+
+
+
 
 example.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -27,9 +47,9 @@ example.run(function($ionicPlatform) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    localDB.sync(remoteDB, {live: true});
+
   });
-})
+});
 
 
 
@@ -58,7 +78,7 @@ example.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'menuContent': {
           templateUrl: 'templates/todo.html',
-          controller: 'ExampleController'
+          controller: 'FirebaseCtrl'
         }
       }
     })
@@ -72,6 +92,25 @@ example.config(function($stateProvider, $urlRouterProvider) {
       }
     })
 
+    .state('app.signup', {
+      url: '/signup',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/SignUp.html',
+          controller: 'SignUpCtrl'
+        }
+      }
+    })
+
+    .state('app.login2', {
+      url: '/login2',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/login2.html',
+          controller: 'LoginCtrl'
+        }
+      }
+    })
   .state('app.calendar', {
     url: '/calendar',
     views: {

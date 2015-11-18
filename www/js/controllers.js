@@ -70,7 +70,7 @@ ref.onAuth(function(authData) {
     }
   };
 
-  $scope.purchaseItem = function(item) {
+  $scope.checkItem = function(item) {
     var itemRef = new Firebase('https://dazzling-torch-81.firebaseio.com/'+$scope.user+'/todos/' + item.$id);
     $scope.checked = !$scope.checked;
     console.log($scope.checked);

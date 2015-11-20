@@ -87,7 +87,7 @@ example.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'menuContent': {
           templateUrl: 'templates/chores.html',
-          controller: 'PlaylistsCtrl'
+          controller: 'ChoresController'
         }
       }
     })

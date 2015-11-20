@@ -45,20 +45,22 @@ example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 });
 
+example.controller('ChoresController', function($scope, Items, $state){
+
+});
+
 example.controller('FirebaseCtrl', function($scope, Items, $ionicListDelegate, $state) {
   $scope.items = Items;
   $scope.checked = $scope.items.checked;
-
-
   var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
-ref.onAuth(function(authData) {
-  if (authData) {
-    console.log("Authenticated with uid:", authData.uid);
-    $scope.user = authData.uid;
-  } else {
-  $state.go('app.login2');
-  }
-});
+  ref.onAuth(function(authData) {
+    if (authData) {
+      console.log("Authenticated with uid:", authData.uid);
+      $scope.user = authData.uid;
+    } else {
+    $state.go('app.login2');
+    }
+  });
 
   $scope.addItem = function() {
     var name = prompt('What do you need to buy?');
@@ -149,8 +151,6 @@ example.controller("ExampleController", function($scope, $ionicPopup, PouchDBLis
         $ionicPopup.prompt({
             title: 'Enter a new TODO item',
             inputType: 'text'
-
-
         })
         .then(function(result) {
             if(result !== "") {
@@ -158,8 +158,6 @@ example.controller("ExampleController", function($scope, $ionicPopup, PouchDBLis
                     $scope.todos = [];
                 }
                 localDB.post({_id: result});
-
-
             } else {
                 console.log("Action not completed");
             }
@@ -168,37 +166,25 @@ example.controller("ExampleController", function($scope, $ionicPopup, PouchDBLis
 
     $scope.addtodo = function(text) {
             if(text !== "") {
-
-
                 if($scope.hasOwnProperty("todos") !== true) {
                     $scope.todos = [];
                 }
                 localDB.post({
                   _id: text,
                   completed: false});
-
-
             } else {
                 console.log("Action not completed");
             }
-
-
         };
 
         $scope.deleteTodo = function(todo){
           localDB.remove(todo);
-
-
         };
 
     $scope.get = function(query){
-
       remoteDB.get(query).then(function (result) {
         $scope.result = result;
-
       });
-
-
     };
 
     $scope.toggleCompleted = function(todo){

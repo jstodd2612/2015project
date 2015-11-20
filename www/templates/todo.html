@@ -55,12 +55,13 @@
     <!--<i class="icon positive ion-ios-trash" ng-click="deleteTodo(todo)"></i>
     <button ng-click="deleteTodo(todo)" type="button button-right" class="button button-positive" name="button">Delete item</button>-->
 
+
     <ion-option-button class="button-assertive" ng-click="deleteTodo(item)">
       <i class="icon ion-trash-a"></i>
     </ion-option-button>
 
-  </ion-item>
-</ion-list>
+    <ion-list class="list " ng-repeat="item in items" >
+  <ion-item  class="item item-icon-right" ng-click="checkItem(item)" ng-class="{checked: item.checked == 'true'}">
 
 <!-- <div class="item item-input-inset">
  <label class="item-input-wrapper" type="search" value= "">

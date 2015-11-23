@@ -7,32 +7,17 @@
 
 
 
-var example = angular.module('starter', ['ionic' , 'firebase']);
+var example = angular.module('starter', [
+  'ionic',
+  'firebase',
+  'starter.controllers',
+  'authService',
+  'todosService',
+]);
 
+angular.module('starter.controllers', [
 
-example.factory('Items', ['$firebaseArray', function($firebaseArray, $state) {
-
-var user;
-
-  var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
-ref.onAuth(function(authData) {
-  if (authData) {
-    console.log("Authenticated with uid:", authData.uid);
-    user = authData.uid;
-  } else {
-
-  }
-});
-
-console.log(user +" Userid");
-
-
-  var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+user+'/todos');
-  return $firebaseArray(itemsRef);
-}]);
-
-
-
+]);
 
 example.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -51,34 +36,28 @@ example.run(function($ionicPlatform) {
   });
 });
 
-
-
-
 example.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-
     .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
-
-  .state('app.home', {
-    url: '/home',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/home.html'
+      url: '/app',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl'
+    })
+    .state('app.home', {
+      url: '/home',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/home.html'
+        }
       }
-    }
-  })
-
-  .state('app.todo', {
+    })
+    .state('app.todo', {
       url: '/todo',
       views: {
         'menuContent': {
-          templateUrl: 'templates/todo.html',
-          controller: 'FirebaseCtrl'
+          templateUrl: 'templates/todos.html',
+          controller: 'TodosCtrl'
         }
       }
     })
@@ -91,7 +70,6 @@ example.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-
     .state('app.signup', {
       url: '/signup',
       views: {
@@ -101,7 +79,6 @@ example.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-
     .state('app.login2', {
       url: '/login2',
       views: {
@@ -111,15 +88,15 @@ example.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-  .state('app.calendar', {
-    url: '/calendar',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/calendar.html',
-        controller: 'PlaylistCtrl'
+    .state('app.calendar', {
+      url: '/calendar',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/calendar.html',
+          controller: 'PlaylistCtrl'
+        }
       }
-    }
-  });
+    });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/login2');
 });

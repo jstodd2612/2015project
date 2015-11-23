@@ -1,0 +1,29 @@
+<ion-view view-title="Todos">
+  <ion-content>
+    <h2>Todos</h2>
+    <ul>
+      <li ng-repeat="todo in todos.getItems() | filter:{checked: false} || {checked: undefined}">
+        <label>
+          <input ng-model="todo.checked" type="checkbox" ng-click="save($index)"/>
+          <span ng-class="{strike: todo.checked}" contenteditable ng-blur="save($index)" ng-bind="todo.name"></span>
+        </label>
+        <button type="button" ng-click="remove($index)">Delete</button>
+      </li>
+    </ul>
+    <h2>Completed</h2>
+    <ul>
+      <li ng-repeat="todo in todos.getItems() | filter:{checked: true}">
+        <label>
+          <input ng-model="todo.checked" type="checkbox" ng-click="save($index)"/>
+          <span ng-class="{strike: todo.checked}" contenteditable ng-blur="save($index)" ng-bind="todo.name"></span>
+        </label>
+        <button type="button" ng-click="remove($index)">Delete</button>
+      </li>
+    </ul>
+    <div>
+      <p>Create Todo</p>
+      <input type="text" ng-model="createForm.name" />
+      <button type="button" ng-click="create({name: createForm.name, checked: false})">Create</button>
+    </div>
+  </ion-content>
+</ion-view>

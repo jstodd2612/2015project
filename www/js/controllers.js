@@ -117,27 +117,13 @@ $scope.signup = function(useremail, password){
 });
 
 
-example.controller('LoginCtrl', function($scope, $state) {
-
-
-$scope.login = function(useremail, password){
-  console.log('TEST TEST');
-  var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
-  console.log("test");
-  ref.authWithPassword({
-    email    : useremail,
-    password : password
-
-  }, function(error, authData) {
-    if (error) {
-      console.log("Login Failed!", error);
-    } else {
-      console.log("Authenticated successfully with payload:", authData);
-       $state.go('app.home');
-    }
-  },{ remember: "sessionOnly"});
-};
-});
+example.controller('LoginCtrl', ['$scope', '$state', 'auth', function($scope, $state, auth) {
+  $scope.login = function(email, password) {
+    auth.login(email, password).then(function() {
+      $state.go('app.home');
+    });
+  };
+}]);
 
 
 example.controller("ExampleController", function($scope, $ionicPopup, PouchDBListener) {

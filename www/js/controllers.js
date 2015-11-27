@@ -83,17 +83,26 @@ $scope.items = $firebaseArray(itemsRef);
   };
 
   $scope.checkItem = function(item) {
-    var itemRef = new Firebase('https://dazzling-torch-81.firebaseio.com/'+$scope.user+'/todos/' + item.$id);
-    $scope.checked = !$scope.checked;
-    console.log($scope.checked);
+    //$scope.checked = item.checked;
+    //console.log("Firdst" + $scope.checked);
+  //  $scope.checked = !$scope.checked;
+    //console.log($scope.checked);
 
 
-    if ($scope.checked) {
-      itemRef.child('checked').set('true');
+
+    if (item.checked) {
+      itemsRef.child(item.$id).child('checked').set('false');
       $ionicListDelegate.closeOptionButtons();
-    } else {
-      itemRef.child('checked').set('false');
+      console.log("Bevor "+item.checked);
+      item.checked = !item.checked;
+        console.log("Danach "+item.checked);
+    } else if (!item.checked) {
+      console.log("Bevor "+item.checked);
+      item.checked = !item.checked;
+      itemsRef.child(item.$id).child('checked').set('true');
       $ionicListDelegate.closeOptionButtons();
+
+      console.log("Danach "+item.checked);
 
     }
 

@@ -45,9 +45,8 @@ example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 });
 
-example.controller('FirebaseCtrl', function($scope, Items, $ionicListDelegate, $state) {
-  $scope.items = Items;
-  $scope.checked = $scope.items.checked;
+example.controller('FirebaseCtrl', function($scope, $ionicListDelegate, $state, $firebaseArray) {
+
 
 
   var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
@@ -60,13 +59,26 @@ ref.onAuth(function(authData) {
   }
 });
 
+var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+$scope.user);
+itemsRef = itemsRef.child('todos');
+
+$scope.items = $firebaseArray(itemsRef);
+
+
   $scope.addItem = function() {
     var name = prompt('What do you need to buy?');
     if (name) {
+/*
       $scope.items.$add({
         'name': name,
         'checked': false
-      });
+      });*/
+
+     itemsRef.push({
+         name: name,
+         checked: 'false'
+        });
+
     }
   };
 
@@ -134,6 +146,29 @@ $scope.login = function(useremail, password){
        $state.go('app.home');
     }
   },{ remember: "sessionOnly"});
+};
+});
+
+example.controller('MembersCtrl', function($scope, $state) {
+
+
+  var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
+  ref.onAuth(function(authData) {
+  if (authData) {
+    console.log("Authenticated with UserID:", authData.uid);
+    $scope.user = authData.uid;
+  } else {
+  $state.go('app.login2');
+  }
+  });
+
+
+$scope.addMember = function($MembersUser){
+  var Ref = new Firebase('https://dazzling-torch-81.firebaseio.com/'+$scope.user);
+  console.log($MembersUser);
+  Ref.child($MembersUser).set('true');
+
+
 };
 });
 

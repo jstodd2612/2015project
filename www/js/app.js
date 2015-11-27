@@ -29,7 +29,8 @@ console.log(user +" Userid");
 
 
 
-  var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+user+'/todos');
+  var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+user);
+   itemsRef = itemsRef.child('todos');
   return $firebaseArray(itemsRef);
 }]);
 
@@ -110,6 +111,16 @@ example.config(function($stateProvider, $urlRouterProvider) {
         'menuContent': {
           templateUrl: 'templates/login2.html',
           controller: 'LoginCtrl'
+        }
+      }
+    })
+
+    .state('app.members', {
+      url: '/members',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/members.html',
+          controller: 'MembersCtrl'
         }
       }
     })

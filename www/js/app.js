@@ -27,6 +27,8 @@ ref.onAuth(function(authData) {
 console.log(user +" Userid");
 
 
+
+
   var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+user+'/todos');
   return $firebaseArray(itemsRef);
 }]);

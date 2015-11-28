@@ -45,7 +45,7 @@ example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 });
 
-example.controller('FirebaseCtrl', function($scope, $ionicListDelegate, $state, $firebaseArray) {
+example.controller('FirebaseCtrl', function($scope,Items, $ionicListDelegate, $state, $firebaseArray) {
 
 
 
@@ -59,10 +59,14 @@ ref.onAuth(function(authData) {
   }
 });
 
-var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+$scope.user);
-itemsRef = itemsRef.child('todos');
+//  var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/').orderByChild($scope.user).equalTo("true");
+  // itemsRef = itemsRef.parent();
+//var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+$scope.user);
+var itemsRef = Items.child('todos');
+
 
 $scope.items = $firebaseArray(itemsRef);
+console.log($scope.items);
 
 
   $scope.addItem = function() {

@@ -26,9 +26,27 @@ ref.onAuth(function(authData) {
 
 console.log(userid +" useridid");
 
-var itemsRef = new Firebase("https://dazzling-torch-81.firebaseio.com/"+ userid);
+var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+userid+'/todos');
 
-  return itemsRef;
+return itemsRef;
+//console.log($firebaseArray(itemsRef) + " Really ? ");
+
+/*  itemsRef.on('value', function(snap) {
+    if (snap.val() ===null) {
+      console.log("ISt Null");
+    }
+    else {
+
+      userid = snap.val();
+console.log(userid + 'Member');}
+  }); */
+
+
+
+
+//itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+userid);
+
+
 }]);
 
 

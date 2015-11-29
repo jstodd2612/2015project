@@ -54,18 +54,21 @@ ref.onAuth(function(authData) {
   if (authData) {
     console.log("Authenticated with uid:", authData.uid);
     $scope.user = authData.uid;
+
   } else {
   $state.go('app.login2');
   }
 });
 
-//  var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/').orderByChild($scope.user).equalTo("true");
-  // itemsRef = itemsRef.parent();
+  //var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/').orderByChild($scope.user).equalTo("true");
+  //var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/').orderByChild($scope.user).equalTo("true");
+
+  //itemsRef = itemsRef.child();
 //var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+$scope.user);
-var itemsRef = Items.child('todos');
+//itemsRef = Items.child('todos');
 
 
-$scope.items = $firebaseArray(itemsRef);
+$scope.items = $firebaseArray(Items);
 console.log($scope.items);
 
 
@@ -78,7 +81,7 @@ console.log($scope.items);
         'checked': false
       });*/
 
-     itemsRef.push({
+     Items.push({
          name: name,
          checked: 'false'
         });
@@ -95,7 +98,7 @@ console.log($scope.items);
 
 
     if (item.checked) {
-      itemsRef.child(item.$id).child('checked').set('false');
+      Items.child(item.$id).child('checked').set('false');
       $ionicListDelegate.closeOptionButtons();
       console.log("Bevor "+item.checked);
       item.checked = !item.checked;
@@ -103,7 +106,7 @@ console.log($scope.items);
     } else if (!item.checked) {
       console.log("Bevor "+item.checked);
       item.checked = !item.checked;
-      itemsRef.child(item.$id).child('checked').set('true');
+      Items.child(item.$id).child('checked').set('true');
       $ionicListDelegate.closeOptionButtons();
 
       console.log("Danach "+item.checked);
@@ -126,13 +129,14 @@ $scope.signup = function(useremail, password){
   var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
   ref.createUser({
     email    : useremail,
-    password : password
+    password : password,
+
   }, function(error, userData) {
     if (error) {
       console.log("Error creating user:", error);
     } else {
       console.log("Successfully created user account with uid:", userData.uid);
-      console.log(onAuth()+"Here ist the on Auth");
+    //  console.log(onAuth()+"Here ist the on Auth");
       $state.go('app.login2');
     }
   });
@@ -177,9 +181,9 @@ example.controller('MembersCtrl', function($scope, $state) {
 
 
 $scope.addMember = function($MembersUser){
-  var Ref = new Firebase('https://dazzling-torch-81.firebaseio.com/'+$scope.user);
+  var Ref = new Firebase('https://dazzling-torch-81.firebaseio.com/'+$MembersUser);
   console.log($MembersUser);
-  Ref.child($MembersUser).set('true');
+  Ref.child('Member').set($scope.user);
 
 
 };

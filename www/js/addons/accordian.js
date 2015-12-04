@@ -2,7 +2,6 @@ angular.module('accordian', ['ionic'])
 
 .controller('accordCtrl', function($scope) {
   $scope.groups = ['Samantha', 'Jerry', 'Richard', 'Carrie'];
->>>>>>> c18304cdac1b7221b4c6b4ad65462b96d4e43c0d
   for (var i=0; i<10; i++) {
     $scope.groups[i] = {
       name: i,

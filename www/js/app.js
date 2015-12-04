@@ -13,7 +13,7 @@ var example = angular.module('starter', [
   'starter.controllers',
   'authService',
   'todosService',
-  'accordian'
+  'accordian',
 ]);
 
 angular.module('starter.controllers', [

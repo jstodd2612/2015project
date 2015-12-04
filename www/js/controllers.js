@@ -45,7 +45,11 @@ example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 });
 
+example.controller('ChoresCtrl', function($scope, Items, $ionicListDelegate, $state) {
 
+
+
+});
 
 example.controller('FirebaseCtrl', function($scope, Items, $ionicListDelegate, $state) {
   $scope.items = Items;

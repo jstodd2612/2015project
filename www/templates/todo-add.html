@@ -1,0 +1,40 @@
+
+
+<ion-view view-title="Todo">
+  <ion-content>
+
+    <body ng-app="tdapp" ng-controller="todoCtrl">
+    <h1>My Todo</h1>
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+        <!-- The actual input tag which is bound to the todoInput using ng-model -->
+          <input type="text" placeholder="Add New Item" ng-model="todoInput" size="100">
+        </label>
+        <!-- Our button thay will call our funtion to add a new todo item -->
+        <button class="button button-balanced" ng-click="todoAdd()">
+          Add Item
+        </button>
+      </div>
+    <div ng-repeat="x in todoList">
+        <li class="item item-checkbox">
+         <label class="checkbox">
+
+         <!-- this is the checkbox element, you will see it is bound to the done setting in the items array -->
+         <!-- When clicked it calls the update function to update the item to its done status -->
+           <input type="checkbox" ng-model="x.done" ng-click="update()">
+         </label>
+
+         <!-- this is a span tag that shows the item text, I am using ng-bind, instead of the span tag we could have used {{x.todoText}} as well -->
+         <span>{{x.todoText}} </span>
+      </li>
+    </div>
+
+    <!-- the remove button will call the remove function and remoave all items that are marked done -->
+    <button class="button button-block button-assertive" ng-click="remove()">
+     Remove Checked Items
+    </button>
+
+
+</ion-content>
+
+</ion-view>

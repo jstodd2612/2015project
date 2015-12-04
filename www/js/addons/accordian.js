@@ -1,6 +1,6 @@
-angular.module('ionicApp', ['ionic'])
+angular.module('accordian', ['ionic'])
 
-.controller('MyCtrl', function($scope) {
+.controller('accordianCtrl', function($scope) {
   $scope.groups = ['Samantha', 'Henry', 'Richard', 'Susan'];
   for (var i=0; i<10; i++) {
     $scope.groups[i] = {

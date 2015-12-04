@@ -45,9 +45,7 @@ example.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 });
 
-example.controller('ChoresController', function($scope, Items, $state){
 
-});
 
 example.controller('FirebaseCtrl', function($scope, Items, $ionicListDelegate, $state) {
   $scope.items = Items;
@@ -58,7 +56,7 @@ example.controller('FirebaseCtrl', function($scope, Items, $ionicListDelegate, $
       console.log("Authenticated with uid:", authData.uid);
       $scope.user = authData.uid;
     } else {
-    $state.go('app.login2');
+    $state.go('app.login');
     }
   });
 
@@ -110,7 +108,7 @@ $scope.signup = function(useremail, password){
     } else {
       console.log("Successfully created user account with uid:", userData.uid);
       console.log(onAuth()+"Here ist the on Auth");
-      $state.go('app.login2');
+      $state.go('app.login');
     }
   });
 };

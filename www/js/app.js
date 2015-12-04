@@ -13,6 +13,7 @@ var example = angular.module('starter', [
   'starter.controllers',
   'authService',
   'todosService',
+  'accordian'
 ]);
 
 angular.module('starter.controllers', [
@@ -66,7 +67,7 @@ example.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'menuContent': {
           templateUrl: 'templates/chores.html',
-          controller: 'ChoresController'
+          controller: 'TodosCtrl'
         }
       }
     })
@@ -79,24 +80,15 @@ example.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('app.login2', {
-      url: '/login2',
+    .state('app.login', {
+      url: '/login',
       views: {
         'menuContent': {
-          templateUrl: 'templates/login2.html',
+          templateUrl: 'templates/login.html',
           controller: 'LoginCtrl'
-        }
-      }
-    })
-    .state('app.calendar', {
-      url: '/calendar',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/calendar.html',
-          controller: 'PlaylistCtrl'
         }
       }
     });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login2');
+  $urlRouterProvider.otherwise('/app/login');
 });

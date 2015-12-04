@@ -1,7 +1,11 @@
-<ion-view view-title="Sign Up">
+ <ion-modal-view>
+  <ion-header-bar>
+      <h1 class="title">Login</h1>
+      <button class="button button-clear" ng-click="closeLogin()"><i class="icon ion-android-close"></i></button>
+  </ion-header-bar>
   <ion-content>
     <img src="/img/juvologo.png" class="image-responsive center-block" alt="juvoLogo" style="max-width:85%;padding:30px 0;"/>
-  <form >
+    <form>
     <div class="list">
       <label class="item item-input">
         <input class="login" type="email" ng-model="signup.email" placeholder="Username">
@@ -10,12 +14,12 @@
         <input class="login" type="password" ng-model="signup.password" placeholder="Password">
       </label>
       <label class="item">
-        <button class="button button-block button-positive" ng-click="login(signup.email, signup.password )" type="submit">Sign In</button>
+        <button class="button button-block button-positive" ng-click="login(signup.email, signup.password )" type="submit">Sign in</button>
       <div class="buttons">
         <button class="button button-clear button-block" type="button" name="button">Or create an account</button>
       </div>
       </label>
     </div>
-  </form>
+    </form>
   </ion-content>
-</ion-view>
+</ion-modal-view>

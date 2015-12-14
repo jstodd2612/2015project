@@ -61,11 +61,12 @@
 <br><br>
 
   <ion-list class="list " ng-repeat="item in items" >
-<ion-item  class="item item-icon-right" ng-click="checkItem(item)" ng-class="{checked: item.checked == 'true'}">
+<ion-item  class="item item-icon-right" ng-click="checkItem(item)" ng-class="{checked: item.checked === 'true'}">
 
 
 
 <h2>{{item.name}}</h2>
+
 
 
 <i class="icon calm"  ng-class="item.checked == 'true'? 'ion-android-checkbox-outline' : 'ion-android-checkbox-outline-blank'"></i>

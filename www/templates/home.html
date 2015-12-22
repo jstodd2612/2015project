@@ -1,7 +1,23 @@
-<ion-view  view-title="Home">
+<ion-view  view-title="Home" ng-app="accordian">
   <ion-content>
     <h1>Home</h1>
-
-    <button type="button" ng-href="#/app/todo" name="button">Go to the todo list</button>
+    <div ng-controller="accordCtrl">
+      <ion-list>
+        <div ng-repeat="group in groups">
+          <ion-item class="item-stable"
+                    ng-click="toggleGroup(group)"
+                    ng-class="{active: isGroupShown(group)}">
+              <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+            &nbsp;
+            Group {{group.name}}
+          </ion-item>
+          <ion-item class="item-accordion"
+                    ng-repeat="item in group.items"
+                    ng-show="isGroupShown(group)">
+            {{item}}
+          </ion-item>
+        </div>
+      </ion-list>
+    </div>
   </ion-content>
 </ion-view>

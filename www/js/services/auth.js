@@ -28,7 +28,7 @@ angular.module('authService', [
 
     onChange: function(cb) {
       authObj.$onAuth(cb);
-    },
+    }
 
   };
 }]);

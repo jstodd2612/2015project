@@ -8,12 +8,17 @@ angular.module('todosService', [
   function resetUser(authData) {
     if (!authData) {
       if (todoItems) { todoItems.destroy(); }
-      return todoItems = null;
+      //return todoItems = null;
+      todoItems = null;
+      return todoItems;
     }
-    todoItems = $firebaseArray(new Firebase(host + '/' + authData.uid + '/todos'));
+    todoItems = $firebaseArray(new Firebase(host + '/Tasks'));
+
   }
   resetUser(auth.currentUser);
   auth.onChange(resetUser);
+
+
 
   return {
     getItems: function() {
@@ -21,7 +26,14 @@ angular.module('todosService', [
     },
     addItem: function(item) {
       if (!todoItems) { return $q.reject(new Error('Could not add an item')); }
-      return todoItems.$add(item);
+      console.log(auth.currentUser);
+      return todoItems.$add({
+          name: item.name,
+          checked: 'false',
+          createdBy: auth.currentUser.uid,
+          family: '1234',
+          type: 'todo'
+         });
     },
     removeItem: function(id) {
       if (!todoItems) { return $q.reject(new Error('Could not remove the item')); }

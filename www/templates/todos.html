@@ -12,7 +12,7 @@
     </ul>
     <h2>Completed</h2>
     <ul>
-      <li ng-repeat="todo in todos.getItems() | filter:{checked: true}">
+      <li ng-repeat="todo in todos.getItems() | filter:{checked: true} ">
         <label>
           <input ng-model="todo.checked" type="checkbox" ng-click="save($index)"/>
           <span ng-class="{strike: todo.checked}" contenteditable ng-blur="save($index)" ng-bind="todo.name"></span>

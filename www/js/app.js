@@ -13,6 +13,7 @@ var example = angular.module('starter', [
   'starter.controllers',
   'authService',
   'todosService',
+  'accordian',
 ]);
 
 angular.module('starter.controllers', [
@@ -36,28 +37,6 @@ example.run(function($ionicPlatform) {
   });
 });
 
-
-example.factory('Items', ['$firebaseArray', function($firebaseArray, $state) {
-
-  var userid;
-
-  var ref = new Firebase("https://dazzling-torch-81.firebaseio.com");
-ref.onAuth(function(authData) {
-  if (authData) {
-    console.log("Authenticated with uid:", authData.uid);
-    userid = authData.uid;
-  } else {
-
-  }
-});
-
-console.log(userid +" useridid");
-
-  var itemsRef = new Firebase(' https://dazzling-torch-81.firebaseio.com/'+userid+'/todos');
-
-return itemsRef;
-}]);
-
 example.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('app', {
@@ -78,8 +57,8 @@ example.config(function($stateProvider, $urlRouterProvider) {
       url: '/todo',
       views: {
         'menuContent': {
-          templateUrl: 'templates/todo.html',
-          controller: 'FirebaseCtrl'
+          templateUrl: 'templates/todos.html',
+          controller: 'TodosCtrl'
         }
       }
     })
@@ -88,7 +67,7 @@ example.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'menuContent': {
           templateUrl: 'templates/chores.html',
-          controller: 'ChoresController'
+          controller: 'TodosCtrl'
         }
       }
     })
@@ -101,24 +80,15 @@ example.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('app.login2', {
-      url: '/login2',
+    .state('app.login', {
+      url: '/login',
       views: {
         'menuContent': {
-          templateUrl: 'templates/login2.html',
+          templateUrl: 'templates/login.html',
           controller: 'LoginCtrl'
-        }
-      }
-    })
-    .state('app.calendar', {
-      url: '/calendar',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/calendar.html',
-          controller: 'PlaylistCtrl'
         }
       }
     });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login2');
+  $urlRouterProvider.otherwise('/app/login');
 });

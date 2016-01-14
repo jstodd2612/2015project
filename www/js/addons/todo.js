@@ -5,7 +5,7 @@ var tdapp = angular.module('tdapp',[]);
 tdapp.controller('todoCtrl', ['$scope', function($scope) {
   // Initialize the todo list array
     //if local storage is null save the todolist to local storage
-    if (localStorage.getItem("mytodos") == null)
+    if (localStorage.getItem("mytodos") === null)
     {
  		$scope.todoList = [ {todoText:'Create app', done:false} ];
        localStorage.setItem("mytodos", angular.toJson($scope.todoList));
@@ -21,7 +21,7 @@ tdapp.controller('todoCtrl', ['$scope', function($scope) {
 // Add an item function
     $scope.todoAdd = function() {
       //check to see if text has been entered, if not exit
-        if ($scope.todoInput == null || $scope.todoInput == ''){return;}
+        if ($scope.todoInput === null || $scope.todoInput === ''){return;}
 
         //if there is text add it to the array
         $scope.todoList.push({todoText:$scope.todoInput, done:false});
@@ -55,9 +55,9 @@ tdapp.controller('todoCtrl', ['$scope', function($scope) {
     //update local storage 100 ms after the checkbox is clicked to allow it to process
     setTimeout(function(){
         localStorage.setItem("mytodos", angular.toJson($scope.todoList));
-    },100)
+    },100);
 
 
-    }
+  };
 
 }]);

@@ -8,7 +8,11 @@ angular.module('authService', [
 
     loginOath: function(provider) {
       provider = provider || 'google';
+<<<<<<< HEAD
       return authObj.$authWithOAuthPopup(provider);
+=======
+      return authObj.$authWithOAuthPopup(provider)
+>>>>>>> master
     },
 
     login: function(email, password) {
@@ -28,7 +32,11 @@ angular.module('authService', [
 
     onChange: function(cb) {
       authObj.$onAuth(cb);
+<<<<<<< HEAD
     }
+=======
+    },
+>>>>>>> master
 
   };
 }]);
